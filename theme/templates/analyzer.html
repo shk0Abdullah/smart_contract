@@ -1,0 +1,155 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Analyzer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const chatForm = document.getElementById("chat-form");
+            const chatInput = document.getElementById("chat-input");
+            const chatBox = document.getElementById("chat-box");
+
+            chatForm.addEventListener("submit", function(event) {
+                event.preventDefault();  // Prevent page reload
+
+                let inputText = chatInput.value.trim();
+                if (inputText === "") return;  // Ignore empty input
+
+                let formData = new FormData();
+                formData.append("input_text", inputText);
+
+                let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+                fetch("{% url 'chat' %}", {  // Replace 'chat' with your Django view name
+                    method: "POST",
+                    headers: { "X-CSRFToken": csrfToken },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    chatInput.value = "";  // Clear input field
+                    chatBox.innerHTML = "";  // Clear old messages
+
+                    // Append chat messages dynamically
+                    data.conversation.forEach(entry => {
+                        if (entry.user) {
+                            chatBox.innerHTML += `
+                                <div class="chat chat-end">
+                                    <div class="chat-bubble bg-gray-700 text-white">${entry.user}</div>
+                                </div>
+                            `;
+                        }
+                        if (entry.bot) {
+                            chatBox.innerHTML += `
+                                <div class="chat chat-start">
+                                    <div class="chat-bubble bg-gray-700 text-white">${entry.bot}</div>
+                                </div>
+                            `;
+                        }
+                    });
+
+                    // Auto-scroll to the latest message
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                })
+                .catch(error => console.error("Error:", error));
+            });
+        });
+    </script>
+
+    <style>
+        .drawer:has(input[type="checkbox"]:checked) .drawer-overlay {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-black via-gray-900 to-purple-900 text-white min-h-screen flex flex-col">
+
+    <div class="relative w-full flex">
+        <div class="drawer drawer-end">
+            <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content">
+                <label for="my-drawer-4" class="drawer-button btn btn-outline border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white absolute top-4 right-4">
+                    Chat with AI
+                </label>
+                
+
+                <div class="min-h-screen flex flex-col items-center">
+                    {% if total %}
+                        <h1 class="text-2xl font-bold z-10 text-white mt-6">Total Vulnerabilities: {{ total }}</h1>
+                    {% endif %}
+
+                    {% if results %}
+                        <div class="w-full max-w-7xl px-4 mt-6 space-y-6 p-6">
+                            {% for result in results %}
+                                <div class="flex flex-wrap lg:flex-nowrap gap-6 items-stretch">
+                                    <div class="w-full lg:w-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-6 flex flex-col">
+                                        <h3 class="text-white font-bold mb-5">INFO DETECTORS:</h3>
+                                        <span class="text-white text-base">{{ result.0 }}</span>
+                                    </div>
+
+                                    <div class="w-1 bg-purple-500 rounded-full h-auto lg:h-full"></div>
+
+                                    <div class="w-full lg:w-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-6 flex flex-col">
+                                        <h3 class="text-white font-bold mb-5">REFERENCE:</h3>
+                                        <span class="text-white text-base">{{ result.1 }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Chat Drawer -->
+            <div class="drawer-side">
+                <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+                <div class="bg-gradient-to-br from-gray-950 via-black to-purple-900 text-white min-h-full w-96 p-4 flex flex-col shadow-lg">
+                    
+                    <div class="text-xl font-bold text-center py-2">Chat</div>
+
+                    <!-- ✅ Added id="chat-box" to update messages dynamically -->
+                    <div id="chat-box" class="max-w-full mx-auto space-y-4 h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 flex-1 pb-4">
+                        {% for entry in conversation %}
+                            {% if entry.user %}
+                                <div class="chat chat-end">
+                                    <div class="chat-bubble bg-gray-700 text-white">
+                                        {{ entry.user }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if entry.bot %}
+                                <div class="chat chat-start">
+                                    <div class="chat-bubble bg-gray-700 text-white">
+                                        {{ entry.bot }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="mt-4">
+                        <!-- ✅ Added id="chat-form" to prevent page reload -->
+                        <form id="chat-form" class="flex items-center w-full">
+                            {% csrf_token %}
+                            <!-- ✅ Added id="chat-input" to get user input -->
+                            <input id="chat-input" type="text" placeholder="Type here..." class="input input-bordered flex-grow bg-gray-700 text-white placeholder-gray-400 rounded-l-md h-12 px-4" name="input_text" required />
+                            <button type="submit" class="btn bg-blue-500 text-white rounded-r-md px-6 h-12">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Chat Drawer -->
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+{% load static tailwind_tags %}
+{% load i18n %}
+{% load account %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - CryptoAI</title>
+    {% tailwind_css %}
+</head>
+<body class="bg-gradient-to-r from-gray-900 via-black to-gray-900 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white/10 backdrop-blur-lg shadow-lg border border-white/20 p-8 rounded-xl w-96">
+        
+        {% if user.is_authenticated %}
+            <h2 class="text-white text-2xl font-bold text-center mb-4">👋 Welcome, {{ user.username }}!</h2>
+            <p class="text-center text-gray-400 text-sm mb-6">
+                You are already logged in.  
+                <a href="{% url 'audit' %}" class="text-blue-400 hover:underline">Click here to access the Audit page</a>.
+            </p>
+        {% else %}
+            <h2 class="text-white text-2xl font-bold text-center mb-6">🚀 Create an Account</h2>
+
+            {% if messages %}
+                <div class="mb-4">
+                        <div class="text-white text-sm text-center py-2 px-4 rounded-lg 
+                                     bg-gray-700 ">
+                            {{ messages }}
+                        </div>
+                </div>
+            {% endif %}
+
+            <form method="POST" action="{% url 'register' %}" class="space-y-6">
+                {% csrf_token %}
+
+                <!-- Username Field -->
+                <div class="relative">
+                    <input type="text" name="username" required autocomplete="off"
+                           class="peer w-full bg-transparent text-white border border-gray-600 rounded-lg px-4 pt-6 pb-2 focus:border-blue-500 focus:ring focus:ring-blue-500/30 outline-none transition-all duration-300"
+                           placeholder=" ">
+                    <label class="absolute left-4 top-2 text-gray-400 text-sm transition-all duration-300 peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-400">
+                        Username
+                    </label>
+                </div>
+
+                <!-- Email Field -->
+                <div class="relative">
+                    <input type="email" name="email" required autocomplete="off"
+                           class="peer w-full bg-transparent text-white border border-gray-600 rounded-lg px-4 pt-6 pb-2 focus:border-blue-500 focus:ring focus:ring-blue-500/30 outline-none transition-all duration-300"
+                           placeholder=" ">
+                    <label class="absolute left-4 top-2 text-gray-400 text-sm transition-all duration-300 peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-400">
+                        Email
+                    </label>
+                </div>
+
+                <!-- Password Fields -->
+                <div class="relative">
+                    <input type="password" name="password" required autocomplete="off"
+                           class="peer w-full bg-transparent text-white border border-gray-600 rounded-lg px-4 pt-6 pb-2 focus:border-blue-500 focus:ring focus:ring-blue-500/30 outline-none transition-all duration-300"
+                           placeholder=" ">
+                    <label class="absolute left-4 top-2 text-gray-400 text-sm transition-all duration-300 peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-400">
+                        Password
+                    </label>
+                </div>
+
+                <div class="relative">
+                    <input type="password" name="confirmation" required autocomplete="off"
+                           class="peer w-full bg-transparent text-white border border-gray-600 rounded-lg px-4 pt-6 pb-2 focus:border-blue-500 focus:ring focus:ring-blue-500/30 outline-none transition-all duration-300"
+                           placeholder=" ">
+                    <label class="absolute left-4 top-2 text-gray-400 text-sm transition-all duration-300 peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-400">
+                        Confirm Password
+                    </label>
+                </div>
+
+                <!-- Sign Up Button -->
+                <button type="submit"
+                        class="w-full bg-blue-500 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    Sign Up
+                </button>
+
+                <p class="text-center text-gray-400 text-sm">
+                    Already have an account? 
+                    <a href="{% url 'account_login' %}" class="text-blue-400 hover:underline">Login</a>
+                </p>
+            </form>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

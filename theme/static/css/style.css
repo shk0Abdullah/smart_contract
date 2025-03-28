@@ -1,0 +1,73 @@
+            /* Glow Effects */
+            .glow-text {
+                text-shadow: 0 0 15px rgba(0, 255, 255, 0.9), 0 0 25px rgba(0, 150, 255, 0.8);
+            }
+
+            .glow-button {
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
+            }
+
+            .glow-button:hover {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+            }
+
+            /* Smart Contract Image Hover Effect */
+            .smart-contract {
+                transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            }
+
+            .hover-container:hover .smart-contract {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            /* Glowing Background Elements */
+            .floating-shape {
+                position: absolute;
+                border-radius: 50%;
+                filter: blur(100px);
+                animation: floatAnimation 6s infinite alternate ease-in-out;
+            }
+
+            @keyframes floatAnimation {
+                0% {
+                    transform: translateY(0px);
+                }
+
+                100% {
+                    transform: translateY(20px);
+                }
+            }
+
+            /* Glass Effect */
+            .glass-nav {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(15px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            /* Hover Glow Effect */
+            .nav-link {
+                position: relative;
+                transition: color 0.3s ease-in-out;
+            }
+
+            .nav-link::after {
+                content: "";
+                position: absolute;
+                bottom: -3px;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: linear-gradient(90deg, cyan, blue, purple);
+                transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+            }
+
+            .nav-link:hover {
+                color: #ffffff;
+            }
+
+            .nav-link:hover::after {
+                width: 100%;
+                left: 0;
+            }

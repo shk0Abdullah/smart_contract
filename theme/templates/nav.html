@@ -1,0 +1,35 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        
+        {% tailwind_css %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Smart Contract Auditor</title>
+        
+</head>
+{% block bodytag %}{% endblock bodytag %}
+
+
+    <!-- Navbar -->
+    <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] md:w-[80%] lg:w-[70%] flex justify-between items-center px-6 py-3 bg-white/10 backdrop-blur-md rounded-full shadow-lg z-50">
+        <a href="{% url 'index' %}" class="text-white text-xl font-semibold tracking-wider">CryptoAI</a>
+        <ul class="hidden md:flex space-x-6">
+            <li><a href="#home" class="nav-link text-gray-300 hover:text-white">Home</a></li>
+            <li><a href="#features" class="nav-link text-gray-300 hover:text-white">Features</a></li>
+            <li><a href="#audit" class="nav-link text-gray-300 hover:text-white">Audit</a></li>
+            <li><a href="#docs" class="nav-link text-gray-300 hover:text-white">Docs</a></li>
+            <li><a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a></li>
+        </ul>
+        <a href="{% url 'account_login' %}" class="px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-white transition duration-300">
+            Get Started
+        </a>
+    </nav>
+
+    {% block body %}{% endblock body %}
+
+</body>
+</html>
