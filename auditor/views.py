@@ -1,6 +1,7 @@
 from langchain_huggingface import HuggingFaceEndpoint
 from solcx import set_solc_version
 # Set the correct Solidity version
+Your_HF_token = "YOUR ACCESS TOKEN"
 set_solc_version('0.8.28')
 import os
 from django.http import HttpResponseRedirect
@@ -139,7 +140,7 @@ def chat(request):
             return JsonResponse({'conversation': []})
 
         # Hugging Face API Token (Use secure storage in production)
-        HF_token = os.environ.get('HF_token', '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')  # Replace with actual token
+        HF_token = os.environ.get('HF_token', Your_HF_token)  # Replace with actual token
         repo_id = 'mistralai/Mistral-7B-Instruct-v0.3'
 
         try:
