@@ -1,0 +1,71 @@
+{% extends "base_loggedin.html" %}
+
+{% block content %}
+
+    <div class="max-w-4xl mx-10 px-4 py-12 ml-64">
+        <!-- Main content starts directly with What is SolSec -->
+        <div class="mb-5">
+            <h1 class="text-4xl font-bold mb-6 text-blue-400">What is SolSec?</h1>
+            <p class="text-lg mb-6">
+                SolSec is a revolutionary smart contract auditing system that transforms how developers secure their blockchain applications. By combining advanced static analysis with AI-powered insights, SolSec identifies critical vulnerabilities before they can be exploited, protecting your users and assets from potential threats.
+            </p>
+            <p class="text-lg">
+                Built for both novice and experienced Solidity developers, our platform streamlines the security review process without compromising on thoroughness or accuracy. SolSec serves as your trusted partner in the journey toward creating robust, secure smart contracts for the decentralized ecosystem.
+            </p>
+        </div>
+
+        <!-- Methodology Diagram -->
+        <div class="mb-6 pl-20 flex flex-row text-center justify-center">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg40b8A3uhfe7P2NEffJ4g7PeZUc6QNGI1nQfvnhcm2ypiTQLTra4hwj5fLk7ww9cJDTHlFYGxn1fGSWtQDqERsVL5p9jk35EQdgqnE3RcE42QF_W1VAv4xbDPLZcfacnFZuQIiG1lhhgYUj6opYf6IMX2cEKSMFxU9bVJmqCd8jp4UibLS9DF9ffn6fena/w305-h305/Untitled_design__7_-removebg-preview.png" alt="SolSec Methodology Diagram" class="rounded-lg shadow-lg mb-4 justify-center" style="width: 45%; height: auto;">
+           
+        </div>
+
+        <!-- How to Use Section -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-400">How to Use SolSec</h2>
+            <p class="text-lg mb-6">
+                Getting started with SolSec is straightforward. Create your account and log in to access our intuitive dashboard. Connect your wallet supporting Sepolia testnet and purchase audit credits with a minimum of $10 worth of test ETH. Our platform seamlessly handles the transaction through our secure smart contract.
+            </p>
+            <p class="text-lg">
+                Once your account is funded, simply upload your Solidity smart contracts for immediate analysis. Within minutes, you'll receive a comprehensive vulnerability assessment highlighting potential issues and providing actionable recommendations to strengthen your code.
+            </p>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-400">How It Works</h2>
+            <p class="text-lg mb-6">
+                Behind SolSec's user-friendly interface lies a sophisticated security engine. Your contracts are first processed through Slither, the industry-leading static analysis framework for Solidity. The system meticulously examines your code for known vulnerabilities, optimization opportunities, and best practice violations.
+            </p>
+            <p class="text-lg mb-6">
+                What truly sets SolSec apart is our AI-enhanced reporting. Vulnerability findings flow through our Retrieval Augmented Generation (RAG) system powered by Chroma DB, then the Mistral 7B language model transforms technical findings into clear, educational explanations. This approach doesn't just identify problems—it helps you understand and fix them.
+            </p>
+            <p class="text-lg">
+                Our Sepolia testnet smart contract handles all credit transactions transparently, using Chainlink oracles to fetch real-time ETH pricing. This ensures fair pricing while tracking your credit usage through an immutable blockchain record, making SolSec not just a tool but a complete security ecosystem.
+            </p>
+        </div>
+
+        <!-- System Requirements -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-blue-400">System Requirements</h2>
+            <p class="text-lg">
+                SolSec requires minimal setup—just a modern web browser with MetaMask or any compatible wallet extension, access to Sepolia testnet ETH for purchasing credits, and your Solidity smart contracts (.sol files) ready for upload. Our platform handles everything else, allowing you to focus on building secure blockchain applications with confidence.
+            </p>
+        </div>
+
+        <footer class="text-center pt-8 border-t border-gray-700">
+            <p class="text-gray-400">© 2025 SolSec - Smart Contract Auditing System</p>
+        </footer>
+    </div>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+

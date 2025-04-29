@@ -1,0 +1,76 @@
+<!-- templates/accounts/settings.html -->
+{% extends 'base_loggedin.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto p-5">
+    <div class="mb-8">
+        <h1 class="text-2xl mb-2">Account Settings</h1>
+        <p class="text-gray-600">Manage your profile information and account preferences</p>
+    </div>
+{% comment %} Add success message {% endcomment %}
+    <div class="bg-black rounded-lg p-6 mb-6 shadow-sm">
+        <h2 class="text-lg mb-5 pb-2.5 border-b border-gray-200">Profile Information</h2>
+        <form method="post" action="{% url 'change_username'%}">
+            {% csrf_token %}
+            <div class="mb-3 text-gray-100">
+                <label for="username" class="block mb-2 text-sm font-medium">Username</label>
+                <input 
+                  type="text" 
+                  id="username" 
+                  name="username" 
+                  value="{{ user.username }}" 
+                  placeholder="Enter your username"
+                  class="w-full px-4 py-2.5 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                  autocomplete="username" 
+                  required 
+                  aria-label="Username"
+                >
+              </div>
+              
+              
+            <div class="mb-5 text-gray-100">
+                <label for="email" class="block mb-2 font-medium">Email</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" class="w-full px-4 py-2.5 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            </div>
+            <button type="submit" class="bg-black border border-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-md text-sm font-medium">Save Changes</button>
+        </form>
+    </div>
+
+    <div class="bg-black rounded-lg p-6 mb-6 shadow-sm text-white">
+        <h2 class="text-lg mb-5 pb-2.5 border-b border-gray-200">Change Password</h2>
+        <form method="post" action="{% url 'change_password'%}">
+            {% csrf_token %}
+            <div class="mb-5 text-white">
+                <label for="current_password" class="block mb-2 font-medium">Current Password</label>
+                <input type="password" id="current_password" name="current_password" class="w-full px-4 py-2.5 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            </div>
+            <div class="mb-5 text-white">
+                <label for="new_password" class="block mb-2 font-medium">New Password</label>
+                <input type="password" id="new_password" name="new_password" class="w-full px-4 py-2.5 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            </div>
+            <div class="mb-5 text-white">
+                <label for="confirm_password" class="block mb-2 font-medium">Confirm New Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="w-full px-4 py-2.5 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            </div>
+            <button type="submit" class="bg-black border border-blue-700 hover:bg-blue-600 text-white px-4 py-2.5 rounded-md text-sm font-medium">Update Password</button>
+        </form>
+    </div>
+
+    <div class="bg-black border border-gray-500 rounded-lg p-6 mb-6 shadow-sm">
+    
+        <div class="flex justify-between items-center md:flex-row flex-col md:items-center items-start">
+            <div class="md:mr-4">
+                <h3 class="text-base mb-1 text-red-500 font-medium">Delete Account</h3>
+                <p class="text-gray-600 max-w-lg">Once you delete your account, there is no going back. Please be certain.</p>
+            </div>
+            <form method = "POST" action="#">
+            <button type="button" class="bg-black border delete-account border-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-md text-sm font-medium md:mt-0 mt-4" data-toggle="modal" data-target="#deleteAccountModal">
+                Delete Account
+            </button>
+        </form>
+        </div>
+    </div>
+
+   
+{% endblock content %}

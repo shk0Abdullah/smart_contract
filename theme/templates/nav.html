@@ -1,0 +1,95 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        
+        {% tailwind_css %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Smart Contract Auditor</title>
+        <style>
+            /* Keep animation on the background or other elements, not on the navbar */
+                .animate-diagonal {
+                position: absolute; 
+                top: 0;
+                left: 0;
+                width: 5px; 
+                height: 4px; 
+                animation: moveDiagonal 19s linear infinite; 
+                z-index: -1; 
+                }
+
+                @keyframes moveDiagonal {
+                0% {
+                    transform: translate(0, 0); /* Start from top-left */
+                }
+                100% {
+                    transform: translate(100vw, 100vh); /* Move off-screen to bottom-right */
+                }
+                }
+
+                section {
+                position: relative;
+                z-index: 1; /* Ensure the section stays above the animated background */
+                padding-top: 100px; /* Prevent section content from being hidden behind the animation */
+                }
+
+                /* Navigation link hover effect */
+                .nav-link {
+                position: relative;
+                transition: color 0.3s ease-in-out;
+                }
+
+                .nav-link::after {
+                content: "";
+                position: absolute;
+                bottom: -3px;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: linear-gradient(90deg, cyan, blue, purple);
+                transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+                }
+
+                .nav-link:hover {
+                color: #ffffff;
+                }
+
+                .nav-link:hover::after {
+                width: 100%;
+                left: 0;
+                }
+
+            </style>
+        
+</head>
+{% block bodytag %}{% endblock bodytag %}
+
+
+    <!-- Navbar -->
+    <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] md:w-[80%] lg:w-[70%] flex justify-between items-center px-6 py-3 bg-white/10 backdrop-blur-md rounded-full shadow-lg z-50">
+        <a href="{% url 'index' %}" class="text-white text-xl font-semibold tracking-wider">
+            <strong>
+              S<span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">⟠</span>LSEC</strong>
+          </a>
+          
+        <ul class="hidden md:flex space-x-6">
+            <li><a href="#home" class="nav-link text-gray-300 hover:text-white">Home</a></li>
+            <li><a href="#features" class="nav-link text-gray-300 hover:text-white">Features</a></li>
+            <li><a href="#audit" class="nav-link text-gray-300 hover:text-white">Audit</a></li>
+            <li><a href="#docs" class="nav-link text-gray-300 hover:text-white">Docs</a></li>
+            <li><a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a></li>
+        </ul>
+        <a href="{% url 'login' %}" class="px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-white transition duration-300">
+            Get Started
+        </a>
+    </nav>
+     
+
+
+    {% block body %}{% endblock body %}
+
+</body>
+</html>

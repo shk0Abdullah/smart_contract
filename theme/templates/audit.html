@@ -1,0 +1,72 @@
+
+ {% extends "base_loggedin.html" %}
+ 
+ {% block content %}
+    
+    <header class="top-0 left-0 w-full p-4 bg-black flex justify-center items-center relative">
+        <h1 class="text-3xl font-bold text-white">Upload Solidity Contract</h1> 
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" 
+               class="absolute right-4 px-4 py-2 rounded-md border border-white text-white 
+                      hover:bg-white hover:text-black transition duration-300">
+                Logout
+            </a>
+        {% endif %}
+    </header>
+
+    <div class="relative inset-0 bg-gradient-to-br from-black via-blue-500/20 to-purple-900/30 opacity-50 pointer-events-none"></div>
+    
+    <div class="flex items-center justify-center min-h-screen pt-16"> 
+        <div class="bg-black p-8 shadow-md rounded-lg w-full max-w-md relative z-10">
+            <p class="text-gray-100 text-center mb-4"> 
+                Upload a <strong>.sol</strong> file for analysis.
+            </p>
+            
+            <form action="{% url 'audit' %}" method="POST" class="space-y-3" enctype="multipart/form-data">  
+                {% csrf_token %}
+                
+                <div class="flex items-center justify-center w-full">
+                    <label for="dropzone-file"
+                           class="flex flex-col items-center justify-center w-full h-48 
+                                  border-2 border-gray-300 border-dashed rounded-lg cursor-pointer
+                                  bg-black hover:bg-gray-800 hover:text-white">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-8 h-8 mb-4 text-gray-500" 
+                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5
+                                        5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5
+                                        a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500">
+                                <span class="font-semibold">Click to upload</span> or drag and drop
+                            </p>
+                        </div>
+                        <input id="dropzone-file" 
+                               type="file" 
+                               accept=".sol" 
+                               class="hidden" 
+                               name="contract" 
+                               required 
+                               onchange="document.getElementById('filename').innerText = this.files[0].name">
+                    </label>
+                </div>
+            
+                <!-- File name display -->
+                <p id="filename" class="text-sm text-center text-gray-300 mt-2"></p>
+            
+                
+                
+                
+                <div class="w-full mt-8 flex justify-center"> 
+                    <button class="px-8 py-3 rounded-full border border-cyan-400 text-cyan-400
+                    hover:bg-cyan-400 hover:text-white transition duration-300">
+                    Analyze
+                </button>
+            
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
