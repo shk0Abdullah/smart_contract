@@ -15,7 +15,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login, logout
 
 results = []
-
+YOUR_HFTOKEN = ''
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
@@ -139,7 +139,7 @@ def chat(request):
             return JsonResponse({'conversation': []})
 
         # Hugging Face API Token (Use secure storage in production)
-        HF_token = os.environ.get('HF_token', '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')  # Replace with actual token
+        HF_token = os.environ.get('HF_token', YOUR_HFTOKEN)  # Replace with actual token
         repo_id = 'mistralai/Mistral-7B-Instruct-v0.3'
 
         try:
